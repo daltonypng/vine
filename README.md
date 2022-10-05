@@ -1,2 +1,2 @@
 # vine
-grep-like file finder
+File-Finder inspirado no File Finder do VSCode e no grep
