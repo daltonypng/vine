@@ -1,5 +1,7 @@
 # vine
 File-Finder inspirado no File Finder do VSCode e no grep
 
+# Instalação
 
-* Baixar a branch e adicionar ao PATH do S.O
+* Linux:
+  - Executar "sudo ./install" para linkar o programa ao "/usr/bin/"
