@@ -1,4 +1,5 @@
 from os import walk
+from file_opener import file_opener 
 
 class terminal_colors:
     BLUE = '\033[94m'
@@ -8,33 +9,10 @@ class terminal_colors:
 
 printed_files = []
 
-#*****************************************************************************#
+def seek_and_print(search_pattern, item):
 
-def try_open(file, n):
-
-    encodingsList = ["utf8", "cp1252", "iso-8859-1", "iso-8859-2"]
-    maxExcondingsSuported = len(encodingsList)
-
-    try:
-        currentEncoding = encodingsList[n]
-        currentFile = open(file,encoding=currentEncoding)
-        fileContent = currentFile.readlines()
-        if fileContent:
-            return fileContent
-
-    except:
-
-        n += 1
-        if n < maxExcondingsSuported:
-            return try_open(file, n)
-
-    return ""
-
-#*****************************************************************************#
-
-def seek_and_print(item):
-
-    fileContent = try_open(item, 0)
+    opener = file_opener()
+    fileContent = opener.letsgo(item)
 
     n = 0
 
@@ -52,23 +30,24 @@ def seek_and_print(item):
 
 #*****************************************************************************#
 
-def list_files(path, extension):
+def list_files(search_pattern, path, extension):
 
     search_len = len(extension) * -1
 
     for (dirpath, dirnames, filenames) in walk(path):
         if dirnames:
             for sub_dir in dirnames:
-                list_files(path + sub_dir + "/", extension)
+                list_files(search_pattern, path + sub_dir + "/", extension)
 
         for fileName in filenames:
             if fileName[search_len:] == extension:
-                seek_and_print(dirpath + fileName)
+                seek_and_print(search_pattern, dirpath + fileName)
 
 #*****************************************************************************#
 
 def vine():
 
+    search_pattern = input("Search pattern: ")
     path = input("File path: ")
     extension = input("File extension *.")
 
@@ -80,11 +59,11 @@ def vine():
     if extension:
         extension = "." + extension
 
-    list_files(path, extension)
+    list_files(search_pattern, path, extension)
 
 #*****************************************************************************#
 
 if __name__ == "__main__":
 
-    search_pattern = input("Search pattern: ")
     vine()
+
