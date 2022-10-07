@@ -15,12 +15,12 @@ def seek_and_print(search_pattern, item):
     fileContent = opener.letsgo(item)
 
     n = 0
-
+    search_pattern = search_pattern.lower()
     for line in fileContent:
 
         n += 1
 
-        if search_pattern in line:
+        if search_pattern in line.lower():
 
             if item not in printed_files:
                 print("\n", terminal_colors.CYAN, item, terminal_colors.END, "\n")
@@ -44,7 +44,7 @@ def list_files(search_pattern, path, extension):
                 seek_and_print(search_pattern, dirpath + fileName)
 
 #*****************************************************************************#
-
+    
 def vine():
 
     search_pattern = input("Search pattern: ")
